@@ -82,9 +82,7 @@ function readJson(
 }
 
 /*
- * =====================================
- * CHECK CURRENT ORDER STATE
- * =====================================
+  CHECK CURRENT ORDER STATE
  */
 
 function getConversionState(
@@ -139,15 +137,7 @@ function getConversionState(
 }
 
 /*
- * =====================================
- * ACQUIRE CONVERSION LOCK
- * =====================================
- *
- * This must happen IMMEDIATELY BEFORE
- * clicking Convert & Goto Job.
- *
- * flag: "wx" means Node will refuse to
- * overwrite an existing lock.
+ ACQUIRE CONVERSION LOCK
  */
 
 function acquireConversionLock({
@@ -255,13 +245,7 @@ function acquireConversionLock({
 }
 
 /*
- * =====================================
- * RECORD CREATED PACE JOB
- * =====================================
- *
- * Call this immediately after Pace
- * redirects us to the newly-created Job
- * and we capture its Job Number.
+ RECORD CREATED PACE JOB
  */
 
 function recordCreatedJob({
@@ -362,15 +346,7 @@ function recordCreatedJob({
 }
 
 /*
- * =====================================
- * ADOPT EXISTING PACE JOB
- * =====================================
- *
- * Used when a Pace Job already exists
- * and has been independently verified.
- *
- * This does NOT pretend the integration
- * created the Pace Job.
+ ADOPT EXISTING PACE JOB
  */
 
 function adoptExistingJob({
@@ -410,7 +386,7 @@ function adoptExistingJob({
     );
 
   /*
-   * Already adopted/created.
+   Already adopted/created.
    */
 
   if (
