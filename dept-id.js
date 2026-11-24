@@ -37,10 +37,9 @@ async function extractDeptId(jobTicketPath) {
     let deptId = match[1].trim();
 
     /*
-     * OPS may wrap the Dept ID onto the next PDF line:
-     *
-     * Dept Id: XX-EXAMPLE-
-     * 12345
+     OPS may wrap the Dept ID onto the next PDF line:
+     Dept Id: XX-EXAMPLE-
+     12345
      */
     const nextLine = lines[i + 1];
 
