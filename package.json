@@ -1,0 +1,10 @@
+{
+  "name": "ops-pace-developer-showcase",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Selected sanitized code samples and standalone tests from an OPS-to-Pace integration",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node --check production-cycle.js && node --check ops-order-watcher.js && node --check ops-order-reader.js && node --check jobpart-reconciler.js && node --check conversion-lock.js && node --check post-create-resume.js && node --check source-part-map.js && node --check shipment-recovery-guard.js && node --check dept-id.js"
+  }
+}

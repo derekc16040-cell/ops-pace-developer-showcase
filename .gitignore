@@ -1,0 +1,15 @@
+# Never commit live credentials, browser sessions, or runtime/customer state
+.env
+.env.*
+!.env.example
+*auth*.json
+*session*.json
+integration-state/
+logs/
+node_modules/
+artwork/
+downloads/
+output/
+*.pdf
+*.zip
+*.tmp
