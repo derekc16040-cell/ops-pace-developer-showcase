@@ -360,9 +360,7 @@ function createJobPartReconciler({
   }
 
   /*
-   * ======================================
-   * FIREWALL
-   * ======================================
+   FIREWALL
    */
 
   async function installFirewall() {
@@ -406,8 +404,8 @@ function createJobPartReconciler({
           );
 
         /*
-         * No POST whatsoever unless the caller
-         * explicitly enabled writes.
+         No POST whatsoever unless the caller
+         explicitly enabled writes.
          */
         if (!allowWrites) {
 
@@ -421,9 +419,7 @@ function createJobPartReconciler({
         }
 
         /*
-         * ------------------------------------
-         * DUPLICATE JOB PART
-         * ------------------------------------
+         DUPLICATE JOB PART
          */
         if (
           allowedWrite &&
@@ -474,9 +470,7 @@ function createJobPartReconciler({
         }
 
         /*
-         * ------------------------------------
          * UPDATE JOB PART
-         * ------------------------------------
          */
         if (
           allowedWrite &&
@@ -577,9 +571,7 @@ function createJobPartReconciler({
   }
 
   /*
-   * ======================================
    * READ ACTUAL JOB PARTS
-   * ======================================
    */
 
   async function readJobParts() {
@@ -657,9 +649,7 @@ function createJobPartReconciler({
   }
 
   /*
-   * ======================================
    * VERIFY PART BELONGS TO JOB
-   * ======================================
    */
 
   async function verifyPartOwnership(
@@ -703,9 +693,7 @@ function createJobPartReconciler({
   }
 
   /*
-   * ======================================
    * DUPLICATE PART
-   * ======================================
    */
 
   async function duplicatePart({
@@ -787,8 +775,8 @@ function createJobPartReconciler({
     }
 
     /*
-     * Pace can render before cloneJSON
-     * finishes populating.
+     Pace can render before cloneJSON
+     finishes populating.
      */
     const cloneField =
       page.locator(
@@ -1004,8 +992,8 @@ function createJobPartReconciler({
     await waitForPage();
 
     /*
-     * If this was not consumed by the
-     * firewall, no write took place.
+     If this was not consumed by the
+     firewall, no write took place.
      */
     if (
       allowedWrite !== null
@@ -1056,9 +1044,7 @@ function createJobPartReconciler({
   }
 
   /*
-   * ======================================
    * UPDATE QUANTITY / JOB PRODUCT
-   * ======================================
    */
 
   async function updatePart({
@@ -1101,8 +1087,8 @@ function createJobPartReconciler({
     await verifySession();
 
     /*
-     * Only change JobProduct when caller
-     * provides an explicit, verified ID.
+     Only change JobProduct when caller
+     provides an explicit, verified ID.
      */
     if (jobProductId) {
 
@@ -1153,8 +1139,8 @@ function createJobPartReconciler({
       );
 
     /*
-     * Never modify input[name="description"].
-     * That is the overall Job description.
+     Never modify input[name="description"].
+     That is the overall Job description.
      */
 
     allowedWrite = {
@@ -1292,9 +1278,7 @@ function createJobPartReconciler({
   }
 
   /*
-   * ======================================
-   * STATE
-   * ======================================
+   STATE
    */
 
   function loadPartState() {
@@ -1327,30 +1311,7 @@ function createJobPartReconciler({
   }
 
   /*
-   * ======================================
-   * RECONCILE
-   * ======================================
-   *
-   * products must contain:
-   *
-   * orderProductId
-   * quantity
-   * estimatePart
-   *
-   * Optional:
-   * artwork
-   * jobProductId
-   *
-   *
-   * sourcePartMap example:
-   *
-   * {
-   *   "01": "10012:01",
-   *   "02": "10012:02"
-   * }
-   *
-   * The conversion layer MUST supply this.
-   * We never guess it.
+   RECONCILE
    */
 
   async function reconcile({
@@ -1394,12 +1355,9 @@ function createJobPartReconciler({
       state.parts || {};
     
     /*
-     * ======================================
-     * VALIDATE PERSISTED PART STATE
-     * ======================================
-     *
-     * Every OPS OrderProduct must map to one
-     * unique actual Pace JobPart.
+     VALIDATE PERSISTED PART STATE
+     Every OPS OrderProduct must map to one
+     unique actual Pace JobPart.
      */
 
     const persistedPartOwners =
@@ -1465,8 +1423,8 @@ function createJobPartReconciler({
     }
 
     /*
-     * Track how many OPS lines have already
-     * consumed each converted source part.
+     Track how many OPS lines have already
+     consumed each converted source part.
      */
     const usedByEstimatePart =
       {};
@@ -1524,10 +1482,9 @@ function createJobPartReconciler({
       }
 
       /*
-       * Recovery/idempotency:
-       *
-       * If this OPS line was already assigned
-       * an actual Pace Part, reuse it.
+       Recovery/idempotency:
+       If this OPS line was already assigned
+       an actual Pace Part, reuse it.
        */
       let actualPart =
         state.parts[
@@ -1564,8 +1521,8 @@ function createJobPartReconciler({
             : null;
 
         /*
-         * First OPS line for this Estimate
-         * Part uses the actual converted part.
+         First OPS line for this Estimate
+         Part uses the actual converted part.
          */
         if (
           alreadyUsed === 0 &&
@@ -1582,9 +1539,9 @@ function createJobPartReconciler({
         } else {
 
           /*
-           * Additional OPS lines mapping to
-           * the same Estimate Part each need
-           * their own actual Pace JobPart.
+           Additional OPS lines mapping to
+           the same Estimate Part each need
+           their own actual Pace JobPart.
            */
           actualPart =
             await duplicatePart({
@@ -1611,9 +1568,9 @@ function createJobPartReconciler({
         };
 
         /*
-         * Persist immediately after part
-         * creation so a crash cannot cause us
-         * to duplicate it again.
+         Persist immediately after part
+         creation so a crash cannot cause us
+         to duplicate it again.
          */
         savePartState(
           state
@@ -1636,7 +1593,7 @@ function createJobPartReconciler({
         ) + 1;
 
       /*
-       * Update / verify quantities.
+       Update / verify quantities.
        */
       await updatePart({
         part:
